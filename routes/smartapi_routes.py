@@ -12,7 +12,11 @@ smartapi_bp = Blueprint("smartapi", __name__)
 
 smartapi_bp.route('/combined_data', methods=['GET'])(ctrl.combined_data)
 smartapi_bp.route('/ticker_data', methods=['GET'])(ctrl.ticker_data)
-
+@smartapi_bp.route('/update_tickers_db', methods=['POST'])
+def update_tickers():
+    from controllers import smartapi_controller as ctrl
+    ctrl.update_ticker_data_to_db()
+    return jsonify({"status": "success", "message": "Ticker data updated in DB"})
 
 
 

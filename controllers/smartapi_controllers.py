@@ -6,6 +6,9 @@ from services.smartapi_service import (
 )
 from datetime import datetime, timedelta
 import time
+from config.db_config import db  
+from utils.stock_list import WATCHSTOCKLIST  # or whatever variable is used there
+
 
 def get_candle_data(exchange, tradingsymbol, symboltoken, interval="ONE_DAY", days=250):
     obj = get_api_object()
@@ -162,7 +165,43 @@ def ticker_data():
     return jsonify(stocks)
 
 
+def update_ticker_data_to_db():
+    for stock in WATCHSTOCKLIST:
+        try:
+            ltp_response = fetch_ltp(
+                exchange=stock["exchange"],
+                tradingsymbol=stock["tradingsymbol"],
+                symboltoken=stock["symboltoken"]
+            )
+            ltp_data = ltp_response.get("data", {})
 
+            ltp = float(ltp_data.get("ltp", 0))
+            close = float(ltp_data.get("close", 1))  # avoid div by 0
+            change_percent = ((ltp - close) / close * 100) if close != 0 else 0
+
+            # Final data to store
+            data = {
+                "name": stock["name"],
+                "ltp": round(ltp, 2),
+                "close": round(close, 2),
+                "changePercent": round(change_percent, 2),
+                "symboltoken": stock["symboltoken"],
+                "tradingsymbol": stock["tradingsymbol"],
+                "exchange": stock["exchange"],
+                "updatedAt": datetime.utcnow()
+            }
+
+            # ✅ Upsert into MongoDB
+            db.tickerdata.update_one(
+                {"symboltoken": stock["symboltoken"]},
+                {"$set": data},
+                upsert=True
+            )
+
+            print(f"✅ Updated {stock['name']} in DB")
+
+        except Exception as e:
+            print(f"❌ Error updating {stock['name']}: {e}")
 
 
 
