@@ -7,14 +7,27 @@ keys = load_keys()
 
 _cached_obj = None
 
-def get_api_object():
+def get_api_object(force_renew=False):
     global _cached_obj
-    if _cached_obj is None:
-        obj = SmartConnect(api_key=keys["API_KEY"])
-        token = get_totp_token(keys["QR_CODE_KEY"])
-        obj.generateSession(keys["USERNAME"], keys["PASSWORD"], token)
-        _cached_obj = obj
+
+    if force_renew or _cached_obj is None:
+        try:
+            obj = SmartConnect(api_key=keys["API_KEY"])
+            token = get_totp_token(keys["QR_CODE_KEY"])
+            login_response = obj.generateSession(keys["USERNAME"], keys["PASSWORD"], token)
+
+            # Optional: Validate login response
+            if not isinstance(login_response, dict) or "data" not in login_response:
+                raise ValueError("Login failed or malformed response.")
+
+            _cached_obj = obj
+        except Exception as e:
+            print(f"❌ Error during login: {e}")
+            _cached_obj = None
+            raise e
+
     return _cached_obj
+
 
 
 @lru_cache(maxsize=1000)  # ✅ Cache up to 1000 unique searches to reduce API load
@@ -53,8 +66,16 @@ def search_scrip_and_extract(search_str, exchange):
 
 # Fetch LTP
 def fetch_ltp(exchange, tradingsymbol, symboltoken):
-    obj = get_api_object()
-    return obj.ltpData(exchange=exchange, tradingsymbol=tradingsymbol, symboltoken=symboltoken)
+    try:
+        obj = get_api_object()
+        return obj.ltpData(exchange=exchange, tradingsymbol=tradingsymbol, symboltoken=symboltoken)
+    except Exception as e:
+        if "Invalid Token" in str(e):
+            print("🔁 Token expired. Re-authenticating...")
+            obj = get_api_object(force_renew=True)
+            return obj.ltpData(exchange=exchange, tradingsymbol=tradingsymbol, symboltoken=symboltoken)
+        raise e
+
 
 # Fetch Candlestick Data
 def fetch_candle_data(exchange, symboltoken, interval, from_date, to_date):
