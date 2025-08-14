@@ -13,20 +13,17 @@ WATCHSTOCKLIST = [
     {"name": "State Bank of India", "tradingsymbol": "SBIN-EQ", "symboltoken": "3045", "exchange": "NSE"},
     {"name": "Maruti Suzuki", "tradingsymbol": "MARUTI-EQ", "symboltoken": "3351", "exchange": "NSE"},
     {"name": "HCL Technologies", "tradingsymbol": "HCLTECH-EQ", "symboltoken": "7229", "exchange": "NSE"},
-    {"name": "Sun Pharma", "tradingsymbol": "SUNPHARMA-EQ", "symboltoken": "8572", "exchange": "NSE"},  # Fixed from 3351
     {"name": "NTPC", "tradingsymbol": "NTPC-EQ", "symboltoken": "2972", "exchange": "NSE"},
-    {"name": "UltraTech Cement", "tradingsymbol": "ULTRACEMCO-EQ", "symboltoken": "10626", "exchange": "NSE"},  # Fixed from 11532
     {"name": "Mahindra & Mahindra", "tradingsymbol": "M&M-EQ", "symboltoken": "2031", "exchange": "NSE"},
     {"name": "Tata Steel", "tradingsymbol": "TATASTEEL-EQ", "symboltoken": "3499", "exchange": "NSE"},
     {"name": "Titan", "tradingsymbol": "TITAN-EQ", "symboltoken": "3506", "exchange": "NSE"},
     {"name": "Bajaj Finserv", "tradingsymbol": "BAJAJFINSV-EQ", "symboltoken": "16675", "exchange": "NSE"},
-    {"name": "Bajaj Finance", "tradingsymbol": "BAJFINANCE-EQ", "symboltoken": "4264", "exchange": "NSE"},  # Fixed from 317
     {"name": "Power Grid Corp", "tradingsymbol": "POWERGRID-EQ", "symboltoken": "14977", "exchange": "NSE"},
     {"name": "Nestle India", "tradingsymbol": "NESTLEIND-EQ", "symboltoken": "17963", "exchange": "NSE"},
     {"name": "Asian Paints", "tradingsymbol": "ASIANPAINT-EQ", "symboltoken": "236", "exchange": "NSE"},
     {"name": "Tech Mahindra", "tradingsymbol": "TECHM-EQ", "symboltoken": "13538", "exchange": "NSE"},
     {"name": "IndusInd Bank", "tradingsymbol": "INDUSINDBK-EQ", "symboltoken": "5258", "exchange": "NSE"},
     {"name": "Wipro", "tradingsymbol": "WIPRO-EQ", "symboltoken": "3787", "exchange": "NSE"},
-    {"name": "HDFC Life", "tradingsymbol": "HDFCLIFE-EQ", "symboltoken": "4670", "exchange": "NSE"},  # Fixed from 467
+    {"name": "HDFC Life", "tradingsymbol": "HDFCLIFE-EQ", "symboltoken": "4670", "exchange": "NSE"},
     {"name": "Tata Motors", "tradingsymbol": "TATAMOTORS-EQ", "symboltoken": "3456", "exchange": "NSE"}
 ]
