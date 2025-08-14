@@ -2,13 +2,15 @@ from flask import request, jsonify
 from services.smartapi_service import (
     search_scrip_and_extract,
     fetch_ltp,
-    get_api_object
+    get_api_object,
+    fetch_ltp,          
+    resolve_symboltoken 
 )
 from datetime import datetime, timedelta
 import time
 from config.db_config import db  
 from utils.stock_list import WATCHSTOCKLIST  # or whatever variable is used there
-
+import time
 
 def get_candle_data(exchange, tradingsymbol, symboltoken, interval="ONE_DAY", days=250):
     obj = get_api_object()
@@ -139,99 +141,80 @@ WATCHLIST = [
 
 def ticker_data():
     stocks = []
-    for stock in WATCHLIST:
+    for stock in WATCHSTOCKLIST:
         try:
-            ltp_response = fetch_ltp(
-                exchange=stock["exchange"],
-                tradingsymbol=stock["tradingsymbol"],
-                symboltoken=stock["symboltoken"]
-            )
-            ltp_data = ltp_response.get("data", {})
+            exchange = stock["exchange"]
+            tradingsymbol = stock["tradingsymbol"]
+
+            symboltoken = get_symboltoken_with_log(tradingsymbol, exchange)
+            ltp_response = fetch_ltp(exchange, tradingsymbol, symboltoken)
+            
+            ltp_data = ltp_response.get("data", {}) or {}
 
             ltp = float(ltp_data.get("ltp", 0))
-            close = float(ltp_data.get("close", 1))  # Avoid division by zero
-
-            change_percent = ((ltp - close) / close * 100) if close != 0 else 0
+            close = float(ltp_data.get("close", 1)) or 0
+            change_percent = ((ltp - close) / close * 100) if close else 0
 
             stocks.append({
                 "name": stock["name"],
                 "ltp": round(ltp, 2),
-                "changePercent": round(change_percent, 2)
+                "changePercent": round(change_percent, 2),
             })
 
+            time.sleep(2)  # ✅ avoid rate limit
+
         except Exception as e:
-            print(f"❌ Error fetching {stock['name']}: {e}")
+            print(f"❌ Error fetching {stock['name']} ({exchange}:{tradingsymbol}): {e}")
             continue
+
     return jsonify(stocks)
+
+def get_symboltoken_with_log(tradingsymbol: str, exchange: str = "NSE") -> str:
+    # We can't peek into lru_cache directly anymore
+    print(f"🔄 Checking token for {exchange}:{tradingsymbol} ...")
+    return resolve_symboltoken(tradingsymbol, exchange)
+
 
 
 def update_ticker_data_to_db():
     for stock in WATCHSTOCKLIST:
         try:
-            ltp_response = fetch_ltp(
-                exchange=stock["exchange"],
-                tradingsymbol=stock["tradingsymbol"],
-                symboltoken=stock["symboltoken"]
-            )
-            ltp_data = ltp_response.get("data", {})
+            exchange = stock["exchange"]
+            tradingsymbol = stock["tradingsymbol"]
+
+            # 1) Resolve token dynamically
+            symboltoken = get_symboltoken_with_log(tradingsymbol, exchange)
+
+            # 2) Fetch LTP using the wrapper
+            ltp_response = fetch_ltp(exchange, tradingsymbol, symboltoken)
+
+            ltp_data = ltp_response.get("data", {}) or {}
 
             ltp = float(ltp_data.get("ltp", 0))
-            close = float(ltp_data.get("close", 1))  # avoid div by 0
-            change_percent = ((ltp - close) / close * 100) if close != 0 else 0
+            close = float(ltp_data.get("close", 1))
+            change_percent = ((ltp - close) / close * 100) if close else 0
 
-            # Final data to store
+            # 3) Upsert payload
             data = {
                 "name": stock["name"],
                 "ltp": round(ltp, 2),
                 "close": round(close, 2),
                 "changePercent": round(change_percent, 2),
-                "symboltoken": stock["symboltoken"],
-                "tradingsymbol": stock["tradingsymbol"],
-                "exchange": stock["exchange"],
-                "updatedAt": datetime.utcnow()
+                "symboltoken": symboltoken,
+                "tradingsymbol": tradingsymbol,
+                "exchange": exchange,
+                "updatedAt": datetime.utcnow(),
             }
 
-            # ✅ Upsert into MongoDB
             db.tickerdata.update_one(
-                {"symboltoken": stock["symboltoken"]},
+                {"exchange": exchange, "tradingsymbol": tradingsymbol},
                 {"$set": data},
                 upsert=True
             )
 
-            print(f"✅ Updated {stock['name']} in DB")
+            print(f"✅ Updated {stock['name']} ({exchange}:{tradingsymbol}, token={symboltoken})")
+
+            time.sleep(2)  # ✅ avoid rate limit
 
         except Exception as e:
-            print(f"❌ Error updating {stock['name']}: {e}")
-
-
-
-# ❌ UNUSED ROUTES - COMMENTED OUT TO AVOID EXECUTION, RETAINED FOR FUTURE USE
-
-"""
-# def search_scrip():
-#     ...
-
-# def ltp():
-#     ...
-
-# def candle_data():
-#     ...
-
-# def stock_data():
-#     ...
-
-# def security_info():
-#     ...
-
-# def market_data():
-#     ...
-
-# def option_chain():
-#     ...
-
-# def expiry_list():
-#     ...
-
-# def master_contract():
-#     ...
-"""
+            print(f"❌ Error updating {stock['name']} ({exchange}:{tradingsymbol}): {e}")
