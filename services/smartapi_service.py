@@ -144,11 +144,13 @@ def fetch_security_info(exchange, tradingsymbol, symboltoken):
 # Fetch Market Data
 def fetch_market_data(exchange, tradingsymbol, symboltoken):
     obj = get_api_object()
-    return obj.getMarketData(
-        exchange=exchange,
-        tradingsymbol=tradingsymbol,
-        symboltoken=symboltoken
-    )
+    params = {
+        "tradingsymbol": tradingsymbol,
+        "symboltoken": symboltoken
+    }
+    return obj.getMarketData(params)
+
+
 
 # Fetch Option Chain
 def fetch_option_chain(exchange, tradingsymbol, symboltoken):

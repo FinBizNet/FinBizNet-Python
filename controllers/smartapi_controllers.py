@@ -1,10 +1,15 @@
 from flask import request, jsonify
 from services.smartapi_service import (
     search_scrip_and_extract,
-    fetch_ltp,
     get_api_object,
     fetch_ltp,          
-    resolve_symboltoken 
+    resolve_symboltoken ,
+    fetch_market_data,
+    fetch_security_info,
+    fetch_option_chain,
+    fetch_expiry_list,
+    fetch_master_contract
+
 )
 from datetime import datetime, timedelta
 import time
@@ -217,4 +222,55 @@ def update_ticker_data_to_db():
             time.sleep(2)  # ✅ avoid rate limit
 
         except Exception as e:
-            print(f"❌ Error updating {stock['name']} ({exchange}:{tradingsymbol}): {e}")
+            print(f"❌ Error updating {stock['name']} ({exchange}:{tradingsymbol}): {e}")\
+            
+
+
+
+def market_data():
+    exchange = request.args.get("exchange")
+    tradingsymbol = request.args.get("tradingsymbol")
+    symboltoken = request.args.get("symboltoken")
+    try:
+        data = fetch_market_data(exchange, tradingsymbol, symboltoken)
+        return jsonify(data)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
+def security_info():
+    exchange = request.args.get("exchange")
+    tradingsymbol = request.args.get("tradingsymbol")
+    symboltoken = request.args.get("symboltoken")
+    try:
+        data = fetch_security_info(exchange, tradingsymbol, symboltoken)
+        return jsonify(data)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
+def option_chain():
+    exchange = request.args.get("exchange")
+    tradingsymbol = request.args.get("tradingsymbol")
+    symboltoken = request.args.get("symboltoken")
+    try:
+        data = fetch_option_chain(exchange, tradingsymbol, symboltoken)
+        return jsonify(data)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
+def expiry_list():
+    exchange = request.args.get("exchange")
+    tradingsymbol = request.args.get("tradingsymbol")
+    symboltoken = request.args.get("symboltoken")
+    try:
+        data = fetch_expiry_list(exchange, tradingsymbol, symboltoken)
+        return jsonify(data)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
+def master_contract():
+    exchange = request.args.get("exchange")
+    try:
+        data = fetch_master_contract(exchange)
+        return jsonify(data)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400

@@ -26,4 +26,87 @@ WATCHSTOCKLIST = [
     {"name": "IndusInd Bank",            "exchange": "NSE", "tradingsymbol": "INDUSINDBK-EQ"},
     {"name": "Wipro",                    "exchange": "NSE", "tradingsymbol": "WIPRO-EQ"},
     {"name": "Tata Motors",              "exchange": "NSE", "tradingsymbol": "TATAMOTORS-EQ"},
+    
+    # Additional large-cap stocks
+    {"name": "Bajaj Finance",            "exchange": "NSE", "tradingsymbol": "BAJFINANCE-EQ"},
+    {"name": "Adani Enterprises",        "exchange": "NSE", "tradingsymbol": "ADANIENT-EQ"},
+    {"name": "Adani Ports",              "exchange": "NSE", "tradingsymbol": "ADANIPORTS-EQ"},
+    {"name": "Sun Pharmaceutical",       "exchange": "NSE", "tradingsymbol": "SUNPHARMA-EQ"},
+    {"name": "Hindalco Industries",      "exchange": "NSE", "tradingsymbol": "HINDALCO-EQ"},
+    {"name": "JSW Steel",                "exchange": "NSE", "tradingsymbol": "JSWSTEEL-EQ"},
+    {"name": "UltraTech Cement",         "exchange": "NSE", "tradingsymbol": "ULTRACEMCO-EQ"},
+    {"name": "Coal India",               "exchange": "NSE", "tradingsymbol": "COALINDIA-EQ"},
+    {"name": "Grasim Industries",        "exchange": "NSE", "tradingsymbol": "GRASIM-EQ"},
+    {"name": "Tata Consumer Products",   "exchange": "NSE", "tradingsymbol": "TATACONSUM-EQ"},
+    
+    # Mid-cap stocks
+    {"name": "Berger Paints",            "exchange": "NSE", "tradingsymbol": "BERGEPAINT-EQ"},
+    {"name": "Divi's Laboratories",      "exchange": "NSE", "tradingsymbol": "DIVISLAB-EQ"},
+    {"name": "Godrej Consumer Products", "exchange": "NSE", "tradingsymbol": "GODREJCP-EQ"},
+    {"name": "Havells India",            "exchange": "NSE", "tradingsymbol": "HAVELLS-EQ"},
+    {"name": "Hero MotoCorp",            "exchange": "NSE", "tradingsymbol": "HEROMOTOCO-EQ"},
+    {"name": "Eicher Motors",            "exchange": "NSE", "tradingsymbol": "EICHERMOT-EQ"},
+    {"name": "Britannia Industries",     "exchange": "NSE", "tradingsymbol": "BRITANNIA-EQ"},
+    {"name": "Dabur India",              "exchange": "NSE", "tradingsymbol": "DABUR-EQ"},
+    {"name": "Dr. Reddy's Laboratories", "exchange": "NSE", "tradingsymbol": "DRREDDY-EQ"},
+    {"name": "Cipla",                    "exchange": "NSE", "tradingsymbol": "CIPLA-EQ"},
+    
+    # Banking & Financial Services
+    {"name": "Bandhan Bank",             "exchange": "NSE", "tradingsymbol": "BANDHANBNK-EQ"},
+    {"name": "Federal Bank",             "exchange": "NSE", "tradingsymbol": "FEDERALBNK-EQ"},
+    {"name": "IDFC First Bank",          "exchange": "NSE", "tradingsymbol": "IDFCFIRSTB-EQ"},
+    {"name": "AU Small Finance Bank",    "exchange": "NSE", "tradingsymbol": "AUBANK-EQ"},
+    {"name": "HDFC Life Insurance",      "exchange": "NSE", "tradingsymbol": "HDFCLIFE-EQ"},
+    {"name": "ICICI Prudential Life",    "exchange": "NSE", "tradingsymbol": "ICICIPRULI-EQ"},
+    {"name": "SBI Life Insurance",       "exchange": "NSE", "tradingsymbol": "SBILIFE-EQ"},
+    {"name": "Bajaj Auto",               "exchange": "NSE", "tradingsymbol": "BAJAJ-AUTO-EQ"},
+    {"name": "Cholamandalam Investment", "exchange": "NSE", "tradingsymbol": "CHOLAFIN-EQ"},
+    
+    # IT & Technology
+    {"name": "Wipro",                    "exchange": "NSE", "tradingsymbol": "WIPRO-EQ"},
+    {"name": "Tech Mahindra",            "exchange": "NSE", "tradingsymbol": "TECHM-EQ"},
+    {"name": "HCL Technologies",         "exchange": "NSE", "tradingsymbol": "HCLTECH-EQ"},
+    {"name": "L&T Infotech",             "exchange": "NSE", "tradingsymbol": "LTI-EQ"},
+    {"name": "Mindtree",                 "exchange": "NSE", "tradingsymbol": "MINDTREE-EQ"},
+    {"name": "Mphasis",                  "exchange": "NSE", "tradingsymbol": "MPHASIS-EQ"},
+    {"name": "Coforge",                  "exchange": "NSE", "tradingsymbol": "COFORGE-EQ"},
+    {"name": "Persistent Systems",       "exchange": "NSE", "tradingsymbol": "PERSISTENT-EQ"},
+    
+    # Energy & Infrastructure
+    {"name": "ONGC",                     "exchange": "NSE", "tradingsymbol": "ONGC-EQ"},
+    {"name": "GAIL",                     "exchange": "NSE", "tradingsymbol": "GAIL-EQ"},
+    {"name": "IOC",                      "exchange": "NSE", "tradingsymbol": "IOC-EQ"},
+    {"name": "BPCL",                     "exchange": "NSE", "tradingsymbol": "BPCL-EQ"},
+    {"name": "HPCL",                     "exchange": "NSE", "tradingsymbol": "HINDPETRO-EQ"},
+    {"name": "Tata Power",               "exchange": "NSE", "tradingsymbol": "TATAPOWER-EQ"},
+    {"name": "Adani Green Energy",       "exchange": "NSE", "tradingsymbol": "ADANIGREEN-EQ"},
+    {"name": "Adani Transmission",       "exchange": "NSE", "tradingsymbol": "ADANITRANS-EQ"},
+    
+    # Auto & Manufacturing
+    {"name": "Ashok Leyland",            "exchange": "NSE", "tradingsymbol": "ASHOKLEY-EQ"},
+    {"name": "Balkrishna Industries",    "exchange": "NSE", "tradingsymbol": "BALKRISIND-EQ"},
+    {"name": "Escorts Kubota",           "exchange": "NSE", "tradingsymbol": "ESCORTS-EQ"},
+    {"name": "Motherson Sumi",           "exchange": "NSE", "tradingsymbol": "MOTHERSUMI-EQ"},
+    {"name": "TVS Motor Company",        "exchange": "NSE", "tradingsymbol": "TVSMOTOR-EQ"},
+    
+    # Pharma & Healthcare
+    {"name": "Biocon",                   "exchange": "NSE", "tradingsymbol": "BIOCON-EQ"},
+    {"name": "Lupin",                    "exchange": "NSE", "tradingsymbol": "LUPIN-EQ"},
+    {"name": "Torrent Pharmaceuticals",  "exchange": "NSE", "tradingsymbol": "TORNTPHARM-EQ"},
+    {"name": "Apollo Hospitals",         "exchange": "NSE", "tradingsymbol": "APOLLOHOSP-EQ"},
+    {"name": "Fortis Healthcare",        "exchange": "NSE", "tradingsymbol": "FORTIS-EQ"},
+    
+    # FMCG & Consumer
+    {"name": "Colgate Palmolive",        "exchange": "NSE", "tradingsymbol": "COLPAL-EQ"},
+    {"name": "Marico",                   "exchange": "NSE", "tradingsymbol": "MARICO-EQ"},
+    {"name": "United Spirits",           "exchange": "NSE", "tradingsymbol": "MCDOWELL-N-EQ"},
+    {"name": "United Breweries",         "exchange": "NSE", "tradingsymbol": "UBL-EQ"},
+    {"name": "Jubilant Foodworks",       "exchange": "NSE", "tradingsymbol": "JUBLFOOD-EQ"},
+    
+    # Others
+    {"name": "Zee Entertainment",        "exchange": "NSE", "tradingsymbol": "ZEEL-EQ"},
+    {"name": "Vedanta",                  "exchange": "NSE", "tradingsymbol": "VEDL-EQ"},
+    {"name": "DLF",                      "exchange": "NSE", "tradingsymbol": "DLF-EQ"},
+    {"name": "Indigo Airlines",          "exchange": "NSE", "tradingsymbol": "INDIGO-EQ"},
+    {"name": "Page Industries",          "exchange": "NSE", "tradingsymbol": "PAGEIND-EQ"},
 ]
